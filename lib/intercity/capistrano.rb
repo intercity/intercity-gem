@@ -20,23 +20,23 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   namespace :deploy do
-    desc "Starts the bluepill demon for the application"
+    desc "Starts the bluepill daemon for the application"
     task :start do
       run "sudo bluepill load /etc/bluepill/#{application}.pill"
     end
-    desc "Stops the bluepill demon for your application"
+    desc "Stops the bluepill daemon for your application"
     task :stop do
       run "sudo bluepill #{application} stop"
     end
-    desc "Restarts the bluepill demon for the application"
+    desc "Restarts the bluepill daemon for the application"
     task :restart, :roles => :app, :except => { :no_release => true } do
       run "sudo bluepill #{application} restart"
     end
-    desc "Checks the status of the bluepill demon for the application"
+    desc "Checks the status of the bluepill daemon for the application"
     task :status do
       run "sudo bluepill #{application} status"
     end
-    desc "Kills the bluepill demon for the application"
+    desc "Kills the bluepill daemon for the application"
     task :quit do
       run "sudo bluepill #{application} quit"
     end
