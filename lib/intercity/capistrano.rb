@@ -21,15 +21,19 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
 
   namespace :deploy do
+    desc "Start bluepill daemon"
     task :start do
       run "sudo bluepill load /etc/bluepill/#{application}.pill"
     end
+    desc "Stop bluepill daemon"
     task :stop do
       run "sudo bluepill #{application} stop"
     end
+    desc "Restart bluepill daemon"
     task :restart, :roles => :app, :except => { :no_release => true } do
       run "sudo bluepill #{application} restart"
     end
+    desc "Show status of the bluepill daemon"
     task :status do
       run "sudo bluepill #{application} status"
     end
