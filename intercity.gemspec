@@ -3,7 +3,7 @@ $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name = 'intercity'
-  spec.version =  '0.0.1'
+  spec.version =  '0.0.2'
   spec.licenses = ['MIT']
   spec.authors = ['Michiel Sikkes']
   spec.email = ['michiel@firmhouse.com']

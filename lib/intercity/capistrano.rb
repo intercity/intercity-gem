@@ -1,8 +1,16 @@
-Capistrano::Configuration.instance(:must_exist).load do
+configuration = Capistrano::Configuration.respond_to?(:instance) ?
+  Capistrano::Configuration.instance(:must_exist) :
+  Capistrano.configuration(:must_exist)
 
-  set :user, "deploy"
-  set :use_sudo, false
-  default_run_options[:pty] = true
+configuration.load do
+
+  _cset :user, "deploy"
+  _cset :use_sudo, false
+  _cset :shell, '/bin/bash --login'
+
+  _cset :bluepill_bin, '/opt/chef/embedded/bin/bluepill'
+
+  default_run_options[:shell] = '/bin/bash --login'
   ssh_options[:forward_agent] = true
 
   after "deploy:finalize_update", "db:symlink"
@@ -23,19 +31,19 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :deploy do
     desc "Start bluepill daemon"
     task :start do
-      run "sudo bluepill load /etc/bluepill/#{application}.pill"
+      run "sudo #{bluepill_bin} load /etc/bluepill/#{application}.pill"
     end
     desc "Stop bluepill daemon"
     task :stop do
-      run "sudo bluepill #{application} stop"
+      run "sudo #{bluepill_bin} #{application} stop"
     end
     desc "Restart bluepill daemon"
     task :restart, :roles => :app, :except => { :no_release => true } do
-      run "sudo bluepill #{application} restart"
+      run "sudo #{bluepill_bin} #{application} restart"
     end
     desc "Show status of the bluepill daemon"
     task :status do
-      run "sudo bluepill #{application} status"
+      run "sudo #{bluepill_bin} #{application} status"
     end
   end
 
