@@ -10,6 +10,7 @@ configuration.load do
 
   _cset :bluepill_bin, '/opt/chef/embedded/bin/bluepill'
 
+  default_run_options[:pty] = true
   default_run_options[:shell] = '/bin/bash --login'
   ssh_options[:forward_agent] = true
 
