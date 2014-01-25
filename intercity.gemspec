@@ -13,5 +13,5 @@ Gem::Specification.new do |spec|
   spec.files = `git ls-files`.split($/)
   spec.require_paths = ["lib"]
   spec.add_runtime_dependency "capistrano", "~>2.15.4"
-  spec.add_runtime_dependency "unicorn", "~> 4.7.0"
+  spec.add_runtime_dependency "unicorn", "~> 4.8.0"
 end
